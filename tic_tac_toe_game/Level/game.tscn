@@ -1,0 +1,303 @@
+[gd_scene load_steps=12 format=3 uid="uid://ofvhse0x7q4w"]
+
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_klgc1"]
+[ext_resource type="Script" path="res://Scripts/Grid.gd" id="2_rfyb2"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="3_esber"]
+[ext_resource type="Texture2D" uid="uid://pi47qdw6qlab" path="res://Assets/board2.png" id="3_xw2io"]
+[ext_resource type="Script" path="res://Scripts/AI.gd" id="4_7gk63"]
+[ext_resource type="Script" path="res://Scripts/Menu.gd" id="5_88bqo"]
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="6_f2d0l"]
+[ext_resource type="Script" path="res://Scripts/EndScreen.gd" id="7_na8ji"]
+
+[sub_resource type="Animation" id="Animation_8tq5h"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("X_button:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("X_button:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("O_button:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("O_button:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Quit_button:anchor_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.6, 0.75]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Quit_button:anchor_bottom")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.683, 0.833]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oav1q"]
+_data = {
+"show": SubResource("Animation_8tq5h")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_68d44"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_klgc1")
+metadata/_edit_lock_ = true
+metadata/_edit_vertical_guides_ = [1290.0, 300.0, 500.0]
+metadata/_edit_horizontal_guides_ = [850.0, 300.0, 500.0]
+
+[node name="Grid" type="Node2D" parent="."]
+visible = false
+position = Vector2(100, 100)
+script = ExtResource("2_rfyb2")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Grid"]
+position = Vector2(300, 300)
+scale = Vector2(0.208333, 0.25)
+texture = ExtResource("3_xw2io")
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("3_esber")
+metadata/_edit_lock_ = true
+
+[node name="AI" type="Node2D" parent="."]
+script = ExtResource("4_7gk63")
+stupid = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Timer" type="Timer" parent="AI"]
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Menu" type="Control" parent="UI"]
+layout_mode = 3
+anchor_top = 0.125
+anchor_right = 1.0
+anchor_bottom = 0.875
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_88bqo")
+metadata/_edit_lock_ = true
+
+[node name="Title" type="Label" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.083
+anchor_right = 0.875
+anchor_bottom = 0.25
+offset_right = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tic Tac Toe"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Play_Button" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.417
+anchor_right = 0.625
+anchor_bottom = 0.5
+offset_left = -3.05176e-05
+text = "Play"
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="Quit_button" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.6
+anchor_right = 0.625
+anchor_bottom = 0.683
+text = "Quit"
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="X_button" type="Button" parent="UI/Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.6
+anchor_right = 0.462
+anchor_bottom = 0.683
+text = "X"
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="O_button" type="Button" parent="UI/Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.537
+anchor_top = 0.6
+anchor_right = 0.6
+anchor_bottom = 0.683
+text = "O"
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Menu"]
+speed_scale = 8.0
+libraries = {
+"": SubResource("AnimationLibrary_oav1q")
+}
+
+[node name="HUD" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.125
+script = ExtResource("6_f2d0l")
+metadata/_edit_lock_ = true
+
+[node name="wins" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.25
+anchor_bottom = 0.5
+text = "Wins:"
+vertical_alignment = 1
+
+[node name="loses" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.25
+anchor_bottom = 1.0
+grow_vertical = 2
+text = "Loses: "
+vertical_alignment = 1
+
+[node name="current_player_val" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.2
+anchor_right = 0.875
+anchor_bottom = 0.7
+grow_horizontal = 0
+text = "You play as:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.875
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.7
+offset_left = 25.0
+offset_right = -25.0
+texture = SubResource("CompressedTexture2D_68d44")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EndScreen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchor_left = 0.25
+anchor_top = 0.375
+anchor_right = 0.75
+anchor_bottom = 0.625
+script = ExtResource("7_na8ji")
+metadata/_edit_lock_ = true
+
+[node name="Message" type="Label" parent="UI/EndScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.25
+text = "Message"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Replay_button" type="Button" parent="UI/EndScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.175
+anchor_top = 0.5
+anchor_right = 0.375
+anchor_bottom = 0.75
+offset_bottom = -1.52588e-05
+text = "Replay"
+
+[node name="Return_button" type="Button" parent="UI/EndScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.625
+anchor_top = 0.5
+anchor_right = 0.825
+anchor_bottom = 0.75
+offset_right = -3.05176e-05
+offset_bottom = -1.52588e-05
+text = "Return"
+
+[connection signal="Win" from="Grid" to="." method="win"]
+[connection signal="timeout" from="AI/Timer" to="AI" method="_on_timer_timeout"]
+[connection signal="play" from="UI/Menu" to="." method="_on_menu_play"]
+[connection signal="pressed" from="UI/Menu/Play_Button" to="UI/Menu" method="_on_play_button_pressed"]
+[connection signal="pressed" from="UI/Menu/Quit_button" to="UI/Menu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/Menu/X_button" to="UI/Menu" method="_on_x_button_pressed"]
+[connection signal="pressed" from="UI/Menu/O_button" to="UI/Menu" method="_on_o_button_pressed"]
+[connection signal="pressed" from="UI/EndScreen/Replay_button" to="." method="restart"]
+[connection signal="pressed" from="UI/EndScreen/Return_button" to="." method="end_game"]
