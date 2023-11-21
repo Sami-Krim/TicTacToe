@@ -1,12 +1,10 @@
 # Tic Tac Toe Game
 
-This file is intended to explain how to run this project and provide some general information.
-
 This project is a Tic Tac Toe game developed as a mini-project for the Artificial Intelligence study unit.
 
 ## Project Description
 
-This project is a mini-project assigned as an assignment for the Artificial Intelligence study unit.
+This project is a mini-project given as an assignment for the Artificial Intelligence study unit.
 
 It was developed using the Godot game engine and programmed with GdScript (a language similar to Python, running directly within Godot).
 
